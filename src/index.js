@@ -22,7 +22,7 @@ bot.catch((e, ctx) => {
     console.log(e, ctx)
 })
 
-console.log("Bot started!", bot.botInfo)
+console.log("Bot started!", bot.getMe())
 
 function startChat(ctx) {
     // console.log("Start:", ctx.update.message)
