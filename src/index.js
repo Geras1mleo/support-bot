@@ -18,8 +18,14 @@ bot.on("message", ctx => {
 
 bot.launch()
 
+bot.catch((e, ctx) => {
+    console.log(e, ctx)
+})
+
+console.log("Bot started!", bot.botInfo)
+
 function startChat(ctx) {
-    console.log("Start:", ctx.update.message)
+    // console.log("Start:", ctx.update.message)
 
     addUser({
         id: ctx.update.message.from.id,
@@ -28,8 +34,11 @@ function startChat(ctx) {
     }, users);
 
     return ctx.reply(
-        "Виберіть питання яке вас цікавить:",
-        Markup.keyboard(Object.keys(questions)),
+        "Натисніть на цю кнопку щоб взнати більше⬇⬇",
+        {
+            ...Markup.keyboard(Object.keys(questions)),
+            ...Markup.inlineKeyboard([Markup.button.callback("Вибрати запитання", "question")])
+        }
     )
 }
 
@@ -64,12 +73,12 @@ async function answerCbQuery(ctx) {
 
 function constructInlineButtons(buttons) {
     const markupButtons = [buttons?.map(button => Markup.button.url(button.caption, button.url)) || []];
-    markupButtons.push([Markup.button.callback("Інше запитання", "question")])
+    markupButtons.push([Markup.button.callback("Вибрати запитання", "question")]) // TODO
     return Markup.inlineKeyboard(markupButtons)
 }
 
 async function questionResponse(ctx) {
-    // console.log(ctx.update.message);
+    console.log(ctx.update.message);
 
     const question = questions[ctx.message.text];
 

@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "run": "env-cmd -f .env node --watch src/index.js",
+    "prod": "env-cmd -f .env node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
